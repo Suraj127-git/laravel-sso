@@ -56,5 +56,21 @@
                 </x-button>
             </div>
         </form>
+        <form id="loginForm" action="{{ route('auth.provider', ['provider' => '__PROVIDER__']) }}" method="GET">
+            @csrf
+            <input type="hidden" name="provider" id="provider" value="">
+            <button type="button" onclick="setProviderAndSubmit('github')" style="padding: 10px 20px; background-color: #333; color: #fff; border: none; cursor: pointer;">Login with GitHub</button>
+            <button type="button" onclick="setProviderAndSubmit('google')" style="padding: 10px 20px; background-color: #DB4437; color: #fff; border: none; cursor: pointer;">Login with Google</button>
+            <button type="button" onclick="setProviderAndSubmit('linkedin')" style="padding: 10px 20px; background-color: #0077B5; color: #fff; border: none; cursor: pointer;">Login with LinkedIn</button>
+        </form>
+        
     </x-authentication-card>
 </x-guest-layout>
+
+<script>
+    function setProviderAndSubmit(provider) {
+        document.getElementById('provider').value = provider;
+        document.getElementById('loginForm').action = "{{ url('auth') }}/" + provider;
+        document.getElementById('loginForm').submit();
+    }
+</script>
